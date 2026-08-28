@@ -1,0 +1,269 @@
+body {
+    color: white;
+    font-size: 24pt;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url(Background.svg);
+    background-size: 2000px;
+    background-position: center;
+    filter: hue-rotate(210deg);
+}
+
+.topInfoBoard {
+    width: 100%;
+    height: 20%;
+    background-color: black;
+    border-radius: 0px 0px 30px 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.candyDisplay {
+    font-size: 50px;
+    width: 100%;
+    height: 60%;
+    display: inline-flex;
+    align-items: center;
+    padding-left: 4%;
+}
+
+.candy {
+    display: block;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+    margin: auto;
+    width: 15%;
+    animation-name: candyRotation;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.bodyHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+    padding-right: 10px;
+}
+
+@keyframes candyRotation {
+    0% {transform: rotate(0deg);}
+    25% {transform: rotate(90deg);}
+    50% {transform: rotate(180deg);}
+    75% {transform: rotate(270deg);}
+    100% {transform: rotate(360deg);}
+}
+
+.clickPowerDisplay {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 100%;
+    width: 30%;
+    font-size: 40px;
+}
+
+.cpsDisplay {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 30%;
+    font-size: 40px;
+    padding-left: 5%;
+}
+
+.candyCpsSegment {
+    width: 60%;
+    display: block;
+}
+
+.upgrade {
+    background-color: black;
+    width: 90%;
+    height: 120px;
+    flex-shrink: 0;
+    user-select: none;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 15px;
+    gap: 8px;    
+}
+
+.upgradeImg {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.upgradeTextContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.upgradesHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 5px;
+    width: 30%;
+    height: 95%;
+    border: 5px solid black;
+    border-radius: 7%;
+    overflow: auto;
+}
+
+.upgradeTitle {
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.upgradeCost {
+    color: #ffd700;
+    font-size: 18px;
+}
+
+.upgradeEffect {
+    color: white;
+    font-size: 18px;
+}
+
+.regCandy {
+    position: fixed;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    z-index: 9999;
+    width: 7%;
+    animation-name: candyMovement;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+}
+
+.goldCandy {
+    position: fixed;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    filter: hue-rotate(50deg) brightness(2);
+    z-index: 9999;
+    width: 7%;
+    animation-name: candyMovement;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+}
+
+.rainbowCandy {
+    position: fixed;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    z-index: 9999;
+    width: 7%;
+    animation-name: rainbowCandyMovement;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+}
+
+.diamondCandy {
+    position: fixed;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    filter: hue-rotate(200deg) brightness(1.5);
+    z-index: 9999;
+    width: 7%;
+    animation-name: candyMovement;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+}
+
+.demonCandy {
+    position: fixed;
+    cursor: pointer;
+    outline: none;
+    filter: brightness(0.7);
+    user-select: none;
+    z-index: 9999;
+    width: 7%;
+    animation-name: candyMovement;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+}
+
+.robberCandy {
+    position: fixed;
+    cursor: pointer;
+    outline: none;
+    filter: brightness(0.7);
+    user-select: none;
+    z-index: 9999;
+    width: 7%;
+    animation-name: candyMovement;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+}
+
+@keyframes candyMovement {
+    from {transform: translateX(-50) rotate(0deg);}
+    to {transform: translateX(100vw) rotate(360deg);}
+}
+
+@keyframes rainbowCandyMovement {
+    0% {transform: translateX(-50) rotate(0deg); filter: hue-rotate(0deg) brightness(1.5);}
+    25% {transform: translateX(25vw) rotate(90deg); filter: hue-rotate(90deg) brightness(1.5);}
+    50% {transform: translateX(50vw) rotate(180deg); filter: hue-rotate(180deg) brightness(1.5);}
+    75% {transform: translateX(75vw) rotate(270deg); filter: hue-rotate(270deg) brightness(1.5);}
+    100% {transform: translateX(100vw) rotate(360deg); filter: hue-rotate(360deg) brightness(1.5);}
+}
+
+.reset {
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    width: 5%;
+    height: 20%;
+    font-size: 25px;
+    border-radius: 20px;
+}
+
+.miscellaneousHolder {
+    padding: 10px;
+    height: 190px;
+    display: flex;
+    align-items: flex-end;
+}
