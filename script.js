@@ -116,6 +116,7 @@ function loadUpgrades() {
 
 const RESET_BUTTON = document.getElementById("reset");
 const PRESTIGE_BUTTON = document.getElementById("prestige");
+const ACHIEVEMENT_BOX = document.getElementById("achievements");
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const maxTrackHeight = window.innerHeight - 50;
@@ -268,6 +269,7 @@ async function runCPS() {
         checkCandySpawns();
         refreshDisplay();
         prestigeAllowed();
+        checkAchievment();
         saveGame();
         await delay(1000);
     }
@@ -304,6 +306,7 @@ function splitNumber(number) {
 class Candy {
     constructor(type, power, image) {
         this.power = power;
+        this.type = type;
         const flyCandy = document.createElement("img");
         flyCandy.src = image;
         flyCandy.className = type;
@@ -420,6 +423,7 @@ function resetGame() {
                 devastationSpawnChance = 1;
                 threshold = 1_000_000;
                 upgradeData = INITIAL_UPGRADE_DATA;
+                candiesCaught = 0;
                 window.location.reload();
             }
         }
@@ -452,8 +456,11 @@ function prestigeAllowed() {
 }
 
 async function checkAchievment() {
-    if (candiesCaught == 1) {
-        await delay(2500);
+    if (candiesCaught == 1 && ACHIEVEMENT_BOX.innerHTML !== "First Regular!") {
+        ACHIEVEMENT_BOX.style.display = "flex";
+        ACHIEVEMENT_BOX.innerHTML = "First Regular!";
+        await delay(5000);
+        ACHIEVEMENT_BOX.style.display = "none";
     }
 }
 
