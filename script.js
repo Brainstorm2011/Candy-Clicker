@@ -431,6 +431,7 @@ function prestigePurchased() {
         devastationSpawnChance = Math.floor(0.2 * devastationSpawnChance);
         threshold *= 1_000_000;
         upgradeData = INITIAL_UPGRADE_DATA;
+        saveGame();
         window.location.reload();
     }
 }
