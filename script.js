@@ -16,6 +16,8 @@ const CANDY_DISPLAY = document.getElementById("candyDisplay");
 const CLICK_POWER_DISPLAY = document.getElementById("clickPowerDisplay");
 const CPS_DISPLAY = document.getElementById("cpsDisplay");
 
+let candiesCaught = 0;
+
 const INITIAL_UPGRADE_DATA = [
   { name: "Bronze Cursor", displayCost: "25", cost: 25, cat: 1, displayPower: "1", power: 1, imgName: "Bronze Cursor.png" },
   { name: "Auto Candy", displayCost: "100", cost: 100, cat: 2, displayPower: "1", power: 1, imgName: "Auto Candy.png" },
@@ -150,6 +152,7 @@ function loadGame() {
     robberSpawnChance = localStorage.getItem("robberSpawn");
     devastationSpawnChance = localStorage.getItem("devastationSpawn");
     threshold = localStorage.getItem("prestigeThreshold");
+    candiesCaught = localStorage.getItem("candiesCaught");
 }
 
 function saveGame() {
@@ -163,6 +166,7 @@ function saveGame() {
     localStorage.setItem("robberSpawn", robberSpawnChance);
     localStorage.setItem("devastationSpawn", devastationSpawnChance);
     localStorage.setItem("prestigeThreshold", threshold);
+    localStorage.setItem("candiesCaught", candiesCaught);
 }
 
 window.addEventListener("mousemove", (e) => {mouseX = e.pageX; mouseY = e.pageY});
@@ -321,6 +325,9 @@ class Candy {
 
     addFlyCandy() {
         candy += this.power * clickPower;
+        if (this.type = "regCandy") {
+            candiesCaught++;
+        }
         this.element.remove();
         refreshDisplay();
     }
@@ -441,6 +448,12 @@ function prestigeAllowed() {
         PRESTIGE_BUTTON.style.opacity = "0.25";
     } else {
         PRESTIGE_BUTTON.style.opacity = "1";
+    }
+}
+
+async function checkAchievment() {
+    if (candiesCaught == 1) {
+        await delay(2500);
     }
 }
 
