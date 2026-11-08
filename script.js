@@ -411,7 +411,7 @@ function resetGame() {
                 demonSpawnChance = 1;
                 robberSpawnChance = 1;
                 devastationSpawnChance = 1;
-                prestige = 1_000_000;
+                threshold = 1_000_000;
                 upgradeData = INITIAL_UPGRADE_DATA;
                 window.location.reload();
             }
