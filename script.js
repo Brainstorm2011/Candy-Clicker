@@ -456,9 +456,9 @@ function prestigeAllowed() {
 }
 
 async function checkAchievment() {
-    if (candiesCaught == 1 && ACHIEVEMENT_BOX.innerHTML !== "Clicked 1 Regular Candy") {
+    if (candiesCaught == 1 && ACHIEVEMENT_BOX.innerHTML !== "First Regular!") {
         ACHIEVEMENT_BOX.style.display = "flex";
-        ACHIEVEMENT_BOX.innerHTML = "Clicked 1 Regular Candy";
+        ACHIEVEMENT_BOX.innerHTML = "First Regular!";
         await delay(5000);
         ACHIEVEMENT_BOX.style.display = "none";
     }
