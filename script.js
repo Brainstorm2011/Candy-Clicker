@@ -250,7 +250,8 @@ async function runCPS() {
         }
         checkCandySpawns();
         refreshDisplay();
-        rebirthAllowed();
+        prestigeAllowed();
+        checkAchievment();
         saveGame();
         await delay(1000);
     }
@@ -287,6 +288,7 @@ function splitNumber(number) {
 class Candy {
     constructor(type, power, image) {
         this.power = power;
+        this.type = type;
         const flyCandy = document.createElement("img");
         flyCandy.src = image;
         flyCandy.className = type;
@@ -435,8 +437,11 @@ function rebirthAllowed() {
 }
 
 async function checkAchievment() {
-    if (candiesCaught == 1) {
-        await delay(2500);
+    if (candiesCaught == 1 && ACHIEVEMENT_BOX.innerHTML !== "First Regular!") {
+        ACHIEVEMENT_BOX.style.display = "flex";
+        ACHIEVEMENT_BOX.innerHTML = "First Regular!";
+        await delay(5000);
+        ACHIEVEMENT_BOX.style.display = "none";
     }
 }
 
