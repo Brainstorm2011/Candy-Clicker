@@ -95,15 +95,15 @@ function loadUpgrades() {
         box.appendChild(textContainer);
 
         if (data.cat === 1) {
-            box.addEventListener("click", () => {addClickPower(i)});
+            box.addEventListener("click", function() {addClickPower(this, i)});
         } else if (data.cat == 2) {
-            box.addEventListener("click", () => {addCPS(i)});
+            box.addEventListener("click", function() {addCPS(this, i)});
         } else if (data.cat == 3) {
-            box.addEventListener("click", () => {decreaseDemonSpawn(i)});
+            box.addEventListener("click", function() {decreaseDemonSpawn(this)});
         } else if (data.cat == 4) {
-            box.addEventListener("click", () => {decreaseDevastationSpawn(i)});
+            box.addEventListener("click", function() {decreaseDevastationSpawn(this)});
         } else {
-            box.addEventListener("click", () => {decreaseRobberSpawn(i)});
+            box.addEventListener("click", function() {decreaseRobberSpawn(this)});
         }
         
         const holder = document.getElementById("holder");
@@ -197,47 +197,62 @@ function refreshDisplay() {
     CPS_DISPLAY.innerHTML = "CPS: " + splitNumber(candyPerSecond);
 }
 
-function addClickPower(id) {
+async function addClickPower(element, id) {
     const data = UPGRADE_DATA[id];
     if (candy >= data.cost) {
         candy -= data.cost;
         clickPower += data.power;
+        element.style.transform = "scale(1.1)";
+        await delay(100);
+        element.style.transform = "scale(1)";
         refreshDisplay();
     }
 }
 
-function addCPS(id) {
+async function addCPS(element, id) {
     const data = UPGRADE_DATA[id];
     if (candy >= data.cost) {
         candy -= data.cost;
         candyPerSecond += data.power;
+        element.style.transform = "scale(1.1)";
+        await delay(100);
+        element.style.transform = "scale(1)";
         refreshDisplay();
     }
 }
 
-function decreaseDemonSpawn() {
+async function decreaseDemonSpawn(element) {
     const data = UPGRADE_DATA[id];
     if (candy >= data.cost) {
         candy -= data.cost;
         demonSpawnChance -= 0.01;
+        element.style.transform = "scale(1.1)";
+        await delay(100);
+        element.style.transform = "scale(1)";
         refreshDisplay();
     }
 }
 
-function decreaseDevastationSpawn() {
+async function decreaseDevastationSpawn(element) {
     const data = UPGRADE_DATA[id];
     if (candy >= data.cost) {
         candy -= data.cost;
         devastationSpawnChance -= 0.01;
+        element.style.transform = "scale(1.1)";
+        await delay(100);
+        element.style.transform = "scale(1)";
         refreshDisplay();
     }
 }
 
-function decreaseRobberSpawn() {
+async function decreaseRobberSpawn(element) {
     const data = UPGRADE_DATA[id];
     if (candy >= data.cost) {
         candy -= data.cost;
         robberSpawnChance -= 0.01;
+        element.style.transform = "scale(1.1)";
+        await delay(100);
+        element.style.transform = "scale(1)";
         refreshDisplay();
     }
 }
