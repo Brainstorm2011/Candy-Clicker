@@ -117,7 +117,7 @@ function loadUpgrades() {
 
 
 const RESET_BUTTON = document.getElementById("reset");
-const REBIRTH_BUTTON = document.getElementById("prestige");
+const REBIRTH_BUTTON = document.getElementById("rebirth");
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const maxTrackHeight = window.innerHeight - 50;
@@ -250,8 +250,7 @@ async function runCPS() {
         }
         checkCandySpawns();
         refreshDisplay();
-        prestigeAllowed();
-        checkAchievment();
+        rebirthAllowed();
         saveGame();
         await delay(1000);
     }
@@ -288,7 +287,6 @@ function splitNumber(number) {
 class Candy {
     constructor(type, power, image) {
         this.power = power;
-        this.type = type;
         const flyCandy = document.createElement("img");
         flyCandy.src = image;
         flyCandy.className = type;
@@ -437,11 +435,8 @@ function rebirthAllowed() {
 }
 
 async function checkAchievment() {
-    if (candiesCaught == 1 && ACHIEVEMENT_BOX.innerHTML !== "First Regular!") {
-        ACHIEVEMENT_BOX.style.display = "flex";
-        ACHIEVEMENT_BOX.innerHTML = "First Regular!";
-        await delay(5000);
-        ACHIEVEMENT_BOX.style.display = "none";
+    if (candiesCaught == 1) {
+        await delay(2500);
     }
 }
 
