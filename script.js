@@ -117,7 +117,7 @@ function loadUpgrades() {
 
 
 const RESET_BUTTON = document.getElementById("reset");
-const REBIRTH_BUTTON = document.getElementById("prestige");
+const REBIRTH_BUTTON = document.getElementById("rebirth");
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const maxTrackHeight = window.innerHeight - 50;
