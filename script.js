@@ -138,7 +138,7 @@ RESET_BUTTON.addEventListener("mouseover", resetHover);
 RESET_BUTTON.addEventListener("mouseout", resetOff);
 RESET_BUTTON.addEventListener("click", resetGame);
 
-REBIRTH_BUTTON.addEventListener("click", prestigePurchased);
+REBIRTH_BUTTON.addEventListener("click", rebirthPurchased);
 
 if (localStorage.getItem("candy") !== null) {
     loadGame();
@@ -250,7 +250,7 @@ async function runCPS() {
         }
         checkCandySpawns();
         refreshDisplay();
-        prestigeAllowed();
+        rebirthAllowed();
         saveGame();
         await delay(1000);
     }
@@ -409,23 +409,24 @@ function resetGame() {
     }
 }
 
-function prestigePurchased() {
+function rebirthPurchased() {
     if (candy >= threshold) {
         candy = 0;
         clickPower = Math.floor(0.001 * clickPower);
-        candyPerSecond = 0;
+        candyPerSecond = Math.floor(0.000001 * candyPerSecond);
         candyTime = [0, 0, 0, 0, 0, 0, 0];
         candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240)];
         demonSpawnChance = Math.floor(0.2 * demonSpawnChance);
         robberSpawnChance = Math.floor(0.2 * robberSpawnChance);
         devastationSpawnChance = Math.floor(0.2 * devastationSpawnChance);
-        threshold *= 1_000_000;
+        rebirth++;
+        threshold = UPGRADE_DATA[rebirth * 4 - 1].cost * 10;
         saveGame();
         window.location.reload();
     }
 }
 
-function prestigeAllowed() {
+function rebirthAllowed() {
     if (candy < threshold) {
         REBIRTH_BUTTON.style.opacity = "0.25";
     } else {
