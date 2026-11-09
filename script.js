@@ -198,11 +198,7 @@ function addClickPower(id) {
     const data = upgradeData[id];
     if (candy >= data.cost) {
         candy -= data.cost;
-        data.cost = Math.floor(data.cost * 1.05);
-        data.displayCost = splitNumber(data.cost);
         clickPower += data.power;
-        const boxes = document.querySelectorAll('.upgrade');
-        boxes[id].querySelector('.upgradeCost').textContent = `${upgradeData[id].displayCost} Candy`;
         refreshDisplay();
     }
 }
@@ -211,11 +207,7 @@ function addCPS(id) {
     const data = upgradeData[id];
     if (candy >= data.cost) {
         candy -= data.cost;
-        data.cost = Math.floor(data.cost * 1.05);
-        data.displayCost = splitNumber(data.cost);
         candyPerSecond += data.power;
-        const boxes = document.querySelectorAll('.upgrade');
-        boxes[id].querySelector('.upgradeCost').textContent = `${upgradeData[id].displayCost} Candy`;
         refreshDisplay();
     }
 }
