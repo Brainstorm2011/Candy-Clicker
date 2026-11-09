@@ -412,7 +412,7 @@ function resetGame() {
 function rebirthPurchased() {
     if (candy >= threshold) {
         candy = 0;
-        clickPower = Math.ceiling(0.001 * clickPower);
+        clickPower = Math.ceil(0.001 * clickPower);
         candyPerSecond = Math.floor(0.000001 * candyPerSecond);
         candyTime = [0, 0, 0, 0, 0, 0, 0];
         candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240)];
