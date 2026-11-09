@@ -4,8 +4,7 @@ let clickPower = 1;
 let demonSpawnChance = 1;
 let robberSpawnChance = 1;
 let devastationSpawnChance = 1;
-let threshold = 1_000_000;
-rebirth = 1;
+let rebirth = 1;
 
 let mouseY = 0;
 let mouseX = 0;
@@ -20,36 +19,36 @@ const CPS_DISPLAY = document.getElementById("cpsDisplay");
 let candiesCaught = 0;
 
 const UPGRADE_DATA = [
-  { name: "Bronze Cursor", displayCost: "25", cost: 25, cat: 1, displayPower: "1", power: 1, imgName: "Bronze Cursor.png" },
-  { name: "Auto Candy", displayCost: "100", cost: 100, cat: 2, displayPower: "1", power: 1, imgName: "Auto Candy.png" },
-  { name: "Candy Farm", displayCost: "500", cost: 500, cat: 2, displayPower: "10", power: 10, imgName: "Candy Farm.png" },
-  { name: "Candy Mine", displayCost: "4.75K", cost: 4750, cat: 2, displayPower: "100", power: 100, imgName: "Candy Mine.png" },
-  { name: "Silver Cursor", displayCost: "150K", cost: 150_000, cat: 1, displayPower: "2K", power: 2000, imgName: "Silver Cursor.png" },
-  { name: "Candy Factory", displayCost: "2M", cost: 2_000_000, cat: 2, displayPower: "15K", power: 15_000, imgName: "Candy Factory.png" },
-  { name: "Candy Lab", displayCost: "15M", cost: 15_000_000, cat: 2, displayPower: "125K", power: 125_000, imgName: "Candy Lab.png" },
-  { name: "Candy Temple", displayCost: "125M", cost: 125_000_000, cat: 2, displayPower: "5M", power: 5_000_000, imgName: "Candy Temple.png" },
-  { name: "Gold Cursor", displayCost: "400M", cost: 400_000_000, cat: 1, displayPower: "2M", power: 2_000_000, imgName: "Gold Cursor.png" },
-  { name: "Candy Rocket", displayCost: "5B", cost: 5_000_000_000, cat: 2, displayPower: "100M", power: 100_000_000, imgName: "Candy Rocket.png" },
-  { name: "Candy Man", displayCost: "100B", cost: 15_000_000, cat: 2, displayPower: "2.5B", power: 2_500_000_000, imgName: "Candy Man.png" },
-  { name: "Candy King", displayCost: "2T", cost: 2_000_000_000, cat: 2, displayPower: "150B", power: 150_000_000_000, imgName: "Candy King.png" },
-  { name: "Jade Cursor", displayCost: "150T", cost: 150_000_000_000_000, cat: 1, displayPower: "2T", power: 2_000_000_000_000, imgName: "Jade Cursor.png" },
-  { name: "Candy Planet", displayCost: "10Q", cost: 10_000_000_000_000_000n, cat: 2, displayPower: "100T", power: 100_000_000_000_000, imgName: "Candy Planet.png" },
-  { name: "Candy Star", displayCost: "75Q", cost: 75_000_000_000_000_000n, cat: 2, displayPower: "1Q", power: 1_000_000_000_000_000, imgName: "Candy Star.png" },
-  { name: "Candy System", displayCost: "250Q", cost: 250_000_000_000_000_000n, cat: 2, displayPower: "10Q", power: 10_000_000_000_000_000n, imgName: "Candy System.png" },
-  { name: "Illuminati Cursor", displayCost: "15Qi", cost: 15_000_000_000_000_000_000n, cat: 1, displayPower: "2Q", power: 2_000_000_000_000_000n, imgName: "Illuminati Cursor.png" },
-  { name: "Candy Galaxy", displayCost: "75Qi", cost: 75_000_000_000_000_000_000n, cat: 2, displayPower: "50Q", power: 50_000_000_000_000_000n, imgName: "Candy Galaxy.png" },
-  { name: "Candy Universe", displayCost: "250Qi", cost: 250_000_000_000_000_000_000n, cat: 2, displayPower: "800Q", power: 800_000_000_000_000_000n, imgName: "Candy Universe.png" },
-  { name: "Candy Multiverse", displayCost: "10S", cost: 10_000_000_000_000_000_000_000n, cat: 2, displayPower: "150Qi", power: 150_000_000_000_000_000_000n, imgName: "Candy Multiverse.png" },
-  { name: "Epic Cursor", displayCost: "250S", cost: 250_000_000_000_000_000_000_000n, cat: 1, displayPower: "2S", power: 2_000_000_000_000_000_000_000n, imgName: "Epic Cursor.png" },
-  { name: "Candy Metaverse", displayCost: "100Se", cost: 100_000_000_000_000_000_000_000_000n, cat: 2, displayPower: "100S", power: 100_000_000_000_000_000_000_000n, imgName: "Candy Metaverse.png" },
-  { name: "Candy Xenoverse", displayCost: "350Se", cost: 350_000_000_000_000_000_000_000_000n, cat: 2, displayPower: "1Se", power: 1_000_000_000_000_000_000_000_000n, imgName: "Candy Xenoverse.png" },
-  { name: "Candy Gigaverse", displayCost: "1O", cost: 1_000_000_000_000_000_000_000_000_000n, cat: 2, displayPower: "100Se", power: 100_000_000_000_000_000_000_000_000n, imgName: "Candy Gigaverse.png" },
-  { name: "Legendary Cursor", displayCost: "150O", cost: 150_000_000_000_000_000_000_000_000_000n, cat: 1, displayPower: "2O", power: 2_000_000_000_000_000_000_000_000_000n, imgName: "Legendary Cursor.png" },
-  { name: "Candy Omniverse", displayCost: "2N", cost: 2_000_000_000_000_000_000_000_000_000_000n, cat: 2, displayPower: "100O", power: 100_000_000_000_000_000_000_000_000_000n, imgName: "Candy Omniverse.png" },
-  { name: "Demon Slayer", displayCost: "10D", cost: 10_000_000_000_000_000_000_000_000_000_000_000n, cat: 3, displayPower: "-", power: 0, imgName: "Demon Slayer.png" },
-  { name: "The Blessing", displayCost: "10D", cost: 10_000_000_000_000_000_000_000_000_000_000_000n, cat: 4, displayPower: "-", power: 0, imgName: "The Blessing.png" },
-  { name: "The Candykeeper", displayCost: "10D", cost: 10_000_000_000_000_000_000_000_000_000_000_000n, cat: 5, displayPower: "-", power: 0, imgName: "The Candykeeper.png" },
-  { name: "The GUT of Candy", displayCost: "1.5U", cost: 1_500_000_000_000_000_000_000_000_000_000_000_000n, cat: 2, displayPower: "100D", power: 100_000_000_000_000_000_000_000_000_000_000_000n, imgName: "GUT of Candy.png" }
+    { name: "Bronze Cursor", displayCost: "25", cost: 25, cat: 1, displayPower: "1", power: 1, imgName: "Bronze Cursor.png" },
+    { name: "Auto Candy", displayCost: "100", cost: 100, cat: 2, displayPower: "1", power: 1, imgName: "Auto Candy.png" },
+    { name: "Candy Farm", displayCost: "500", cost: 500, cat: 2, displayPower: "10", power: 10, imgName: "Candy Farm.png" },
+    { name: "Candy Mine", displayCost: "4.75K", cost: 4750, cat: 2, displayPower: "100", power: 100, imgName: "Candy Mine.png" },
+    { name: "Silver Cursor", displayCost: "150K", cost: 150_000, cat: 1, displayPower: "2K", power: 2000, imgName: "Silver Cursor.png" },
+    { name: "Candy Factory", displayCost: "2M", cost: 2_000_000, cat: 2, displayPower: "15K", power: 15_000, imgName: "Candy Factory.png" },
+    { name: "Candy Lab", displayCost: "15M", cost: 15_000_000, cat: 2, displayPower: "125K", power: 125_000, imgName: "Candy Lab.png" },
+    { name: "Candy Temple", displayCost: "125M", cost: 125_000_000, cat: 2, displayPower: "5M", power: 5_000_000, imgName: "Candy Temple.png" },
+    { name: "Gold Cursor", displayCost: "400M", cost: 400_000_000, cat: 1, displayPower: "2M", power: 2_000_000, imgName: "Gold Cursor.png" },
+    { name: "Candy Rocket", displayCost: "5B", cost: 5_000_000_000, cat: 2, displayPower: "100M", power: 100_000_000, imgName: "Candy Rocket.png" },
+    { name: "Candy Man", displayCost: "100B", cost: 15_000_000, cat: 2, displayPower: "2.5B", power: 2_500_000_000, imgName: "Candy Man.png" },
+    { name: "Candy King", displayCost: "2T", cost: 2_000_000_000, cat: 2, displayPower: "150B", power: 150_000_000_000, imgName: "Candy King.png" },
+    { name: "Jade Cursor", displayCost: "150T", cost: 150_000_000_000_000, cat: 1, displayPower: "2T", power: 2_000_000_000_000, imgName: "Jade Cursor.png" },
+    { name: "Candy Planet", displayCost: "10Q", cost: 10_000_000_000_000_000n, cat: 2, displayPower: "100T", power: 100_000_000_000_000, imgName: "Candy Planet.png" },
+    { name: "Candy Star", displayCost: "75Q", cost: 75_000_000_000_000_000n, cat: 2, displayPower: "1Q", power: 1_000_000_000_000_000, imgName: "Candy Star.png" },
+    { name: "Candy System", displayCost: "250Q", cost: 250_000_000_000_000_000n, cat: 2, displayPower: "10Q", power: 10_000_000_000_000_000n, imgName: "Candy System.png" },
+    { name: "Illuminati Cursor", displayCost: "15Qi", cost: 15_000_000_000_000_000_000n, cat: 1, displayPower: "2Q", power: 2_000_000_000_000_000n, imgName: "Illuminati Cursor.png" },
+    { name: "Candy Galaxy", displayCost: "75Qi", cost: 75_000_000_000_000_000_000n, cat: 2, displayPower: "50Q", power: 50_000_000_000_000_000n, imgName: "Candy Galaxy.png" },
+    { name: "Candy Universe", displayCost: "250Qi", cost: 250_000_000_000_000_000_000n, cat: 2, displayPower: "800Q", power: 800_000_000_000_000_000n, imgName: "Candy Universe.png" },
+    { name: "Candy Multiverse", displayCost: "10S", cost: 10_000_000_000_000_000_000_000n, cat: 2, displayPower: "150Qi", power: 150_000_000_000_000_000_000n, imgName: "Candy Multiverse.png" },
+    { name: "Epic Cursor", displayCost: "250S", cost: 250_000_000_000_000_000_000_000n, cat: 1, displayPower: "2S", power: 2_000_000_000_000_000_000_000n, imgName: "Epic Cursor.png" },
+    { name: "Candy Metaverse", displayCost: "100Se", cost: 100_000_000_000_000_000_000_000_000n, cat: 2, displayPower: "100S", power: 100_000_000_000_000_000_000_000n, imgName: "Candy Metaverse.png" },
+    { name: "Candy Xenoverse", displayCost: "350Se", cost: 350_000_000_000_000_000_000_000_000n, cat: 2, displayPower: "1Se", power: 1_000_000_000_000_000_000_000_000n, imgName: "Candy Xenoverse.png" },
+    { name: "Candy Gigaverse", displayCost: "1O", cost: 1_000_000_000_000_000_000_000_000_000n, cat: 2, displayPower: "100Se", power: 100_000_000_000_000_000_000_000_000n, imgName: "Candy Gigaverse.png" },
+    { name: "Legendary Cursor", displayCost: "150O", cost: 150_000_000_000_000_000_000_000_000_000n, cat: 1, displayPower: "2O", power: 2_000_000_000_000_000_000_000_000_000n, imgName: "Legendary Cursor.png" },
+    { name: "Candy Omniverse", displayCost: "2N", cost: 2_000_000_000_000_000_000_000_000_000_000n, cat: 2, displayPower: "100O", power: 100_000_000_000_000_000_000_000_000_000n, imgName: "Candy Omniverse.png" },
+    { name: "Demon Slayer", displayCost: "10D", cost: 10_000_000_000_000_000_000_000_000_000_000_000n, cat: 3, displayPower: "-", power: 0, imgName: "Demon Slayer.png" },
+    { name: "The Blessing", displayCost: "10D", cost: 10_000_000_000_000_000_000_000_000_000_000_000n, cat: 4, displayPower: "-", power: 0, imgName: "The Blessing.png" },
+    { name: "The Candykeeper", displayCost: "10D", cost: 10_000_000_000_000_000_000_000_000_000_000_000n, cat: 5, displayPower: "-", power: 0, imgName: "The Candykeeper.png" },
+    { name: "The GUT of Candy", displayCost: "1.5U", cost: 1_500_000_000_000_000_000_000_000_000_000_000_000n, cat: 2, displayPower: "100D", power: 100_000_000_000_000_000_000_000_000_000_000_000n, imgName: "GUT of Candy.png" }
 ];
 
 function loadUpgrades() {
@@ -106,10 +105,10 @@ function loadUpgrades() {
         } else {
             box.addEventListener("click", () => {decreaseRobberSpawn(i)});
         }
-
+        
         const holder = document.getElementById("holder");
         holder.appendChild(box);
-
+        
         if (i > rebirth * 4 - 1) {
             box.style.display = "none";
         }
@@ -125,6 +124,7 @@ const maxTrackHeight = window.innerHeight - 50;
 const numSuffixes = ['', 'K', 'M', 'B', 'T', 'Q', 'Qi', 'S', 'Sp', 'O', 'N', 'D', 'Un', 'Du', 'Tr', 'Qa'];
 let candyTime = [0, 0, 0, 0, 0, 0, 0];
 let candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240)];
+let threshold = UPGRADE_DATA[rebirth * 4 - 1].cost * 10;
 
 function createSpawns(initial, final) {
     return ((Math.random() * (final - initial)) + initial);
@@ -154,6 +154,7 @@ function loadGame() {
     robberSpawnChance = localStorage.getItem("robberSpawn");
     devastationSpawnChance = localStorage.getItem("devastationSpawn");
     threshold = localStorage.getItem("prestigeThreshold");
+    rebirth = localStorage.getItem("rebirthLevel");
     candiesCaught = localStorage.getItem("candiesCaught");
 }
 
@@ -167,6 +168,7 @@ function saveGame() {
     localStorage.setItem("robberSpawn", robberSpawnChance);
     localStorage.setItem("devastationSpawn", devastationSpawnChance);
     localStorage.setItem("prestigeThreshold", threshold);
+    localStorage.setItem("rebirthLevel", rebirth);
     localStorage.setItem("candiesCaught", candiesCaught);
 }
 
