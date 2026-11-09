@@ -117,7 +117,7 @@ function loadUpgrades() {
 
 
 const RESET_BUTTON = document.getElementById("reset");
-const PRESTIGE_BUTTON = document.getElementById("prestige");
+const REBIRTH_BUTTON = document.getElementById("prestige");
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const maxTrackHeight = window.innerHeight - 50;
@@ -138,7 +138,7 @@ RESET_BUTTON.addEventListener("mouseover", resetHover);
 RESET_BUTTON.addEventListener("mouseout", resetOff);
 RESET_BUTTON.addEventListener("click", resetGame);
 
-PRESTIGE_BUTTON.addEventListener("click", prestigePurchased);
+REBIRTH_BUTTON.addEventListener("click", prestigePurchased);
 
 if (localStorage.getItem("candy") !== null) {
     loadGame();
@@ -427,9 +427,9 @@ function prestigePurchased() {
 
 function prestigeAllowed() {
     if (candy < threshold) {
-        PRESTIGE_BUTTON.style.opacity = "0.25";
+        REBIRTH_BUTTON.style.opacity = "0.25";
     } else {
-        PRESTIGE_BUTTON.style.opacity = "1";
+        REBIRTH_BUTTON.style.opacity = "1";
     }
 }
 
