@@ -18,7 +18,7 @@ const CPS_DISPLAY = document.getElementById("cpsDisplay");
 
 let candiesCaught = 0;
 
-const INITIAL_UPGRADE_DATA = [
+const UPGRADE_DATA = [
   { name: "Bronze Cursor", displayCost: "25", cost: 25, cat: 1, displayPower: "1", power: 1, imgName: "Bronze Cursor.png" },
   { name: "Auto Candy", displayCost: "100", cost: 100, cat: 2, displayPower: "1", power: 1, imgName: "Auto Candy.png" },
   { name: "Candy Farm", displayCost: "500", cost: 500, cat: 2, displayPower: "10", power: 10, imgName: "Candy Farm.png" },
@@ -51,14 +51,12 @@ const INITIAL_UPGRADE_DATA = [
   { name: "The GUT of Candy", displayCost: "1.5U", cost: 1_500_000_000_000_000_000_000_000_000_000_000_000n, cat: 2, displayPower: "100D", power: 100_000_000_000_000_000_000_000_000_000_000_000n, imgName: "GUT of Candy.png" }
 ];
 
-let upgradeData = INITIAL_UPGRADE_DATA;
-
 function loadUpgrades() {
-    for (let i = 0; i < upgradeData.length; i++) {
+    for (let i = 0; i < UPGRADE_DATA.length; i++) {
         const box = document.createElement("div");
         box.className = "upgrade";
         
-        const data = upgradeData[i];
+        const data = UPGRADE_DATA[i];
         
         const img = document.createElement('img');
         img.className = 'upgradeImg';
@@ -147,7 +145,6 @@ function loadGame() {
     clickPower = parseInt(localStorage.getItem("clickPower"), 10);
     candyTime = JSON.parse(localStorage.getItem("candyTime"));
     candySpawn = JSON.parse(localStorage.getItem("candySpawn"));
-    upgradeData = JSON.parse(localStorage.getItem("upgradePrices"));
     demonSpawnChance = localStorage.getItem("demonSpawn");
     robberSpawnChance = localStorage.getItem("robberSpawn");
     devastationSpawnChance = localStorage.getItem("devastationSpawn");
@@ -161,7 +158,6 @@ function saveGame() {
     localStorage.setItem("clickPower", clickPower);
     localStorage.setItem("candyTime", JSON.stringify(candyTime));
     localStorage.setItem("candySpawn", JSON.stringify(candySpawn));
-    localStorage.setItem("upgradePrices", JSON.stringify(upgradeData));
     localStorage.setItem("demonSpawn", demonSpawnChance);
     localStorage.setItem("robberSpawn", robberSpawnChance);
     localStorage.setItem("devastationSpawn", devastationSpawnChance);
@@ -195,7 +191,7 @@ function refreshDisplay() {
 }
 
 function addClickPower(id) {
-    const data = upgradeData[id];
+    const data = UPGRADE_DATA[id];
     if (candy >= data.cost) {
         candy -= data.cost;
         clickPower += data.power;
@@ -204,7 +200,7 @@ function addClickPower(id) {
 }
 
 function addCPS(id) {
-    const data = upgradeData[id];
+    const data = UPGRADE_DATA[id];
     if (candy >= data.cost) {
         candy -= data.cost;
         candyPerSecond += data.power;
@@ -213,40 +209,28 @@ function addCPS(id) {
 }
 
 function decreaseDemonSpawn() {
-    const data = upgradeData[id];
+    const data = UPGRADE_DATA[id];
     if (candy >= data.cost) {
         candy -= data.cost;
-        data.cost = Math.floor(data.cost * 1.05);
-        data.displayCost = splitNumber(data.cost);
         demonSpawnChance -= 0.01;
-        const boxes = document.querySelectorAll('.upgrade');
-        boxes[id].querySelector('.upgradeCost').textContent = `${upgradeData[id].displayCost} Candy`;
         refreshDisplay();
     }
 }
 
 function decreaseDevastationSpawn() {
-    const data = upgradeData[id];
+    const data = UPGRADE_DATA[id];
     if (candy >= data.cost) {
         candy -= data.cost;
-        data.cost = Math.floor(data.cost * 1.05);
-        data.displayCost = splitNumber(data.cost);
         devastationSpawnChance -= 0.01;
-        const boxes = document.querySelectorAll('.upgrade');
-        boxes[id].querySelector('.upgradeCost').textContent = `${upgradeData[id].displayCost} Candy`;
         refreshDisplay();
     }
 }
 
 function decreaseRobberSpawn() {
-    const data = upgradeData[id];
+    const data = UPGRADE_DATA[id];
     if (candy >= data.cost) {
         candy -= data.cost;
-        data.cost = Math.floor(data.cost * 1.05);
-        data.displayCost = splitNumber(data.cost);
         robberSpawnChance -= 0.01;
-        const boxes = document.querySelectorAll('.upgrade');
-        boxes[id].querySelector('.upgradeCost').textContent = `${upgradeData[id].displayCost} Candy`;
         refreshDisplay();
     }
 }
@@ -411,7 +395,7 @@ function resetGame() {
                 robberSpawnChance = 1;
                 devastationSpawnChance = 1;
                 threshold = 1_000_000;
-                upgradeData = INITIAL_UPGRADE_DATA;
+                saveGame();
                 window.location.reload();
             }
         }
@@ -429,7 +413,6 @@ function prestigePurchased() {
         robberSpawnChance = Math.floor(0.2 * robberSpawnChance);
         devastationSpawnChance = Math.floor(0.2 * devastationSpawnChance);
         threshold *= 1_000_000;
-        upgradeData = INITIAL_UPGRADE_DATA;
         saveGame();
         window.location.reload();
     }
