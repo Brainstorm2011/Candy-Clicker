@@ -5,6 +5,7 @@ let demonSpawnChance = 1;
 let robberSpawnChance = 1;
 let devastationSpawnChance = 1;
 let threshold = 1_000_000;
+rebirth = 1;
 
 let mouseY = 0;
 let mouseX = 0;
@@ -108,6 +109,10 @@ function loadUpgrades() {
 
         const holder = document.getElementById("holder");
         holder.appendChild(box);
+
+        if (i > rebirth * 4 - 1) {
+            box.style.display = "none";
+        }
     }
 };
 
