@@ -305,3 +305,12 @@ body::before {
     display: flex;
     align-items: flex-end;
 }
+
+.code {
+    width: 200px;
+    height: 100px;
+    background-color: #fefcaf;
+    color: black;
+    border: 3px solid black;
+    border-radius: 20px;
+}
