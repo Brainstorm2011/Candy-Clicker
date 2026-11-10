@@ -315,6 +315,7 @@ body::before {
     border-radius: 20px;
     user-select: none;
     z-index: 9999;
+    position: absolute;
     animation-name: candyMovement;
     animation-duration: 2s;
     animation-timing-function: linear;

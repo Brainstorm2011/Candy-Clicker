@@ -1,5 +1,3 @@
-const { act } = require("react");
-
 let candy = 0;
 let candyPerSecond = 0;
 let clickPower = 1;
@@ -290,11 +288,12 @@ function splitNumber(number) {
 
 class Candy {
     constructor(type, power, image) {
+        let flyCandy;
         this.power = power;
         if (type == "code") {
-            const code = document.createElement("div");
+            flyCandy = document.createElement("div");
         } else {
-            const flyCandy = document.createElement("img");
+            flyCandy = document.createElement("img");
             flyCandy.src = image;
         }
         flyCandy.className = type;
@@ -307,9 +306,9 @@ class Candy {
             flyCandy.style.top = `${mouseY}px`;
             flyCandy.addEventListener("animationend", () => {this.element.remove();});
             flyCandy.addEventListener("mouseover", () => {this.addDevastation();});
-        } else if (type == 'code') {
-            code.addEventListener("animationed", () => {this.element.remove()});
-            code.addEventListener("pointerdown", () => {this.addCode});
+        } else if (type == "code") {
+            flyCandy.addEventListener("animationend", () => {this.element.remove()});
+            flyCandy.addEventListener("pointerdown", () => {this.addCode});
         } else {
             flyCandy.addEventListener("animationend", () => {this.element.remove();});
             flyCandy.addEventListener("pointerdown", () => {this.addFlyCandy();});
@@ -399,7 +398,7 @@ async function checkCandySpawns() {
         }
     }
     if (candyTime[7] >= candySpawn[7]) {
-        new Candy("code", 10_000, "");
+        new Candy("code", 0, "");
         candySpawn[7] = (Math.random() * 180) + 180;
         candyTime[7] = 0;
     }
@@ -423,10 +422,11 @@ function resetGame() {
                 clickPower = 1;
                 candyPerSecond = 0;
                 candyTime = [0, 0, 0, 0, 0, 0, 0, 0];
-                candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(180, 360)];
+                candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(5, 10)];
                 demonSpawnChance = 1;
                 robberSpawnChance = 1;
                 devastationSpawnChance = 1;
+                rebirth = 1;
                 threshold = UPGRADE_DATA[rebirth * 4 - 1].cost * 10;
                 saveGame();
                 window.location.reload();
