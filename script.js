@@ -1,3 +1,5 @@
+const { act } = require("react");
+
 let candy = 0;
 let candyPerSecond = 0;
 let clickPower = 1;
@@ -15,6 +17,8 @@ const CANDY = document.getElementById("candy");
 const CANDY_DISPLAY = document.getElementById("candyDisplay");
 const CLICK_POWER_DISPLAY = document.getElementById("clickPowerDisplay");
 const CPS_DISPLAY = document.getElementById("cpsDisplay");
+
+const ALPHANUMERICBET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 
 let candiesCaught = 0;
 
@@ -287,8 +291,12 @@ function splitNumber(number) {
 class Candy {
     constructor(type, power, image) {
         this.power = power;
-        const flyCandy = document.createElement("img");
-        flyCandy.src = image;
+        if (type == "code") {
+            const code = document.createElement("div");
+        } else {
+            const flyCandy = document.createElement("img");
+            flyCandy.src = image;
+        }
         flyCandy.className = type;
         flyCandy.style.top = `${Math.floor(Math.random() * maxTrackHeight)}px`;
         this.element = flyCandy;
@@ -299,6 +307,9 @@ class Candy {
             flyCandy.style.top = `${mouseY}px`;
             flyCandy.addEventListener("animationend", () => {this.element.remove();});
             flyCandy.addEventListener("mouseover", () => {this.addDevastation();});
+        } else if (type == 'code') {
+            code.addEventListener("animationed", () => {this.element.remove()});
+            code.addEventListener("pointerdown", () => {this.addCode});
         } else {
             flyCandy.addEventListener("animationend", () => {this.element.remove();});
             flyCandy.addEventListener("pointerdown", () => {this.addFlyCandy();});
@@ -327,6 +338,16 @@ class Candy {
         clickPower = Math.floor(clickPower * 0.75);
         this.element.remove();
         refreshDisplay();
+    }
+
+    addCode() {
+        let activationCode = "";
+        for (let i = 0; i < 6; i++) {
+            activationCode += ALPHANUMERICBET[Math.floor(Math.random() * 36) - 1];
+            if (i % 2 == 1) {
+                activationCode += "-";
+            }
+        }
     }
 }
 
