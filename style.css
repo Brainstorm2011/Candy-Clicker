@@ -18,7 +18,7 @@ body::before {
     height: 100%;
     z-index: -1;
     background-image: url(Background.svg);
-    background-size: auto 115%;
+    background-size: 150%;
     background-position: center;
     filter: hue-rotate(210deg);
 }
