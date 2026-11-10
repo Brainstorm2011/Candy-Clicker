@@ -122,8 +122,8 @@ const REBIRTH_BUTTON = document.getElementById("rebirth");
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const maxTrackHeight = window.innerHeight - 50;
 const numSuffixes = ['', 'K', 'M', 'B', 'T', 'Q', 'Qi', 'S', 'Sp', 'O', 'N', 'D', 'Un', 'Du', 'Tr', 'Qa'];
-let candyTime = [0, 0, 0, 0, 0, 0, 0];
-let candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240)];
+let candyTime = [0, 0, 0, 0, 0, 0, 0, 0];
+let candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(180, 360)];
 let threshold = UPGRADE_DATA[rebirth * 4 - 1].cost * 10;
 
 function createSpawns(initial, final) {
@@ -377,6 +377,11 @@ async function checkCandySpawns() {
             new Candy("devastationCandy", -10, "Devastation Candy.svg");
         }
     }
+    if (candyTime[7] >= candySpawn[7]) {
+        new Candy("code", 10_000, "");
+        candySpawn[7] = (Math.random() * 180) + 180;
+        candyTime[7] = 0;
+    }
 }
 
 function resetHover() {
@@ -396,8 +401,8 @@ function resetGame() {
                 candy = 0;
                 clickPower = 1;
                 candyPerSecond = 0;
-                candyTime = [0, 0, 0, 0, 0, 0, 0];
-                candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240)];
+                candyTime = [0, 0, 0, 0, 0, 0, 0, 0];
+                candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(180, 360)];
                 demonSpawnChance = 1;
                 robberSpawnChance = 1;
                 devastationSpawnChance = 1;
@@ -414,8 +419,8 @@ function rebirthPurchased() {
         candy = 0;
         clickPower = Math.ceil(0.001 * clickPower);
         candyPerSecond = Math.floor(0.000001 * candyPerSecond);
-        candyTime = [0, 0, 0, 0, 0, 0, 0];
-        candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240)];
+        candyTime = [0, 0, 0, 0, 0, 0, 0, 0];
+        candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(180, 360)];
         demonSpawnChance = Math.floor(0.2 * demonSpawnChance);
         robberSpawnChance = Math.floor(0.2 * robberSpawnChance);
         devastationSpawnChance = Math.floor(0.2 * devastationSpawnChance);
