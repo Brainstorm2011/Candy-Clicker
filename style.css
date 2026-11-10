@@ -324,3 +324,15 @@ body::before {
     text-align: center;
     font-size: 30pt;
 }
+
+.codeButton {
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    width: 12%;
+    height: 50%;
+    font-size: 45pt;
+    border-radius: 20px;
+    text-align: center;
+    margin-left: auto;
+}
