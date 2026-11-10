@@ -305,3 +305,34 @@ body::before {
     display: flex;
     align-items: flex-end;
 }
+
+.code {
+    width: 200px;
+    height: 100px;
+    background-color: #fefcaf;
+    color: black;
+    border: 5px solid black;
+    border-radius: 20px;
+    user-select: none;
+    z-index: 9999;
+    position: absolute;
+    animation-name: candyMovement;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    animation-fill-mode: backwards;
+    text-align: center;
+    font-size: 30pt;
+}
+
+.codeButton {
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    width: 12%;
+    height: 50%;
+    font-size: 45pt;
+    border-radius: 20px;
+    text-align: center;
+    margin-left: auto;
+}

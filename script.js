@@ -6,6 +6,8 @@ let robberSpawnChance = 1;
 let devastationSpawnChance = 1;
 let rebirth = 1;
 
+let activationCode = "";
+
 let mouseY = 0;
 let mouseX = 0;
 
@@ -15,6 +17,8 @@ const CANDY = document.getElementById("candy");
 const CANDY_DISPLAY = document.getElementById("candyDisplay");
 const CLICK_POWER_DISPLAY = document.getElementById("clickPowerDisplay");
 const CPS_DISPLAY = document.getElementById("cpsDisplay");
+
+const ALPHANUMERICBET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 
 let candiesCaught = 0;
 
@@ -118,12 +122,13 @@ function loadUpgrades() {
 
 const RESET_BUTTON = document.getElementById("reset");
 const REBIRTH_BUTTON = document.getElementById("rebirth");
+const CODE_BUTTON = document.getElementById("codeButton");
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const maxTrackHeight = window.innerHeight - 50;
 const numSuffixes = ['', 'K', 'M', 'B', 'T', 'Q', 'Qi', 'S', 'Sp', 'O', 'N', 'D', 'Un', 'Du', 'Tr', 'Qa'];
-let candyTime = [0, 0, 0, 0, 0, 0, 0];
-let candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240)];
+let candyTime = [0, 0, 0, 0, 0, 0, 0, 0];
+let candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(180, 360)];
 let threshold = UPGRADE_DATA[rebirth * 4 - 1].cost * 10;
 
 function createSpawns(initial, final) {
@@ -139,6 +144,7 @@ RESET_BUTTON.addEventListener("mouseout", resetOff);
 RESET_BUTTON.addEventListener("click", resetGame);
 
 REBIRTH_BUTTON.addEventListener("click", rebirthPurchased);
+CODE_BUTTON.addEventListener("click", askCode);
 
 if (localStorage.getItem("candy") !== null) {
     loadGame();
@@ -301,9 +307,14 @@ function splitNumber(number) {
 
 class Candy {
     constructor(type, power, image) {
+        let flyCandy;
         this.power = power;
-        const flyCandy = document.createElement("img");
-        flyCandy.src = image;
+        if (type == "code") {
+            flyCandy = document.createElement("div");
+        } else {
+            flyCandy = document.createElement("img");
+            flyCandy.src = image;
+        }
         flyCandy.className = type;
         flyCandy.style.top = `${Math.floor(Math.random() * maxTrackHeight)}px`;
         this.element = flyCandy;
@@ -314,6 +325,9 @@ class Candy {
             flyCandy.style.top = `${mouseY}px`;
             flyCandy.addEventListener("animationend", () => {this.element.remove();});
             flyCandy.addEventListener("mouseover", () => {this.addDevastation();});
+        } else if (type == "code") {
+            flyCandy.addEventListener("animationend", () => {this.element.remove()});
+            flyCandy.addEventListener("pointerdown", () => {this.addCode()}, {once : true});
         } else {
             flyCandy.addEventListener("animationend", () => {this.element.remove();});
             flyCandy.addEventListener("pointerdown", () => {this.addFlyCandy();});
@@ -342,6 +356,25 @@ class Candy {
         clickPower = Math.floor(clickPower * 0.75);
         this.element.remove();
         refreshDisplay();
+    }
+
+    async addCode() {
+        this.element.style.animation = "none";
+        const left = (window.innerWidth - 200) / 2;
+        const top = (window.innerHeight - 100) / 2;
+        this.element.style.left = `${left}px`;
+        this.element.style.top = `${top}px`;
+        activationCode = "";
+        for (let i = 0; i < 6; i++) {
+            activationCode += ALPHANUMERICBET[Math.floor(Math.random() * 36)];
+            if (i % 3 == 1) {
+                activationCode += "-";
+            }
+        }
+        this.element.innerHTML = activationCode;
+        this.element.style.transform = "scale(3)";
+        await delay(2000);
+        this.element.remove();
     }
 }
 
@@ -392,6 +425,11 @@ async function checkCandySpawns() {
             new Candy("devastationCandy", -10, "Devastation Candy.svg");
         }
     }
+    if (candyTime[7] >= candySpawn[7]) {
+        new Candy("code", 0, "");
+        candySpawn[7] = (Math.random() * 180) + 180;
+        candyTime[7] = 0;
+    }
 }
 
 function resetHover() {
@@ -411,11 +449,12 @@ function resetGame() {
                 candy = 0;
                 clickPower = 1;
                 candyPerSecond = 0;
-                candyTime = [0, 0, 0, 0, 0, 0, 0];
-                candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240)];
+                candyTime = [0, 0, 0, 0, 0, 0, 0, 0];
+                candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(180, 360)];
                 demonSpawnChance = 1;
                 robberSpawnChance = 1;
                 devastationSpawnChance = 1;
+                rebirth = 1;
                 threshold = UPGRADE_DATA[rebirth * 4 - 1].cost * 10;
                 saveGame();
                 window.location.reload();
@@ -429,8 +468,8 @@ function rebirthPurchased() {
         candy = 0;
         clickPower = Math.ceil(0.001 * clickPower);
         candyPerSecond = Math.floor(0.000001 * candyPerSecond);
-        candyTime = [0, 0, 0, 0, 0, 0, 0];
-        candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240)];
+        candyTime = [0, 0, 0, 0, 0, 0, 0, 0];
+        candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(180, 360)];
         demonSpawnChance = Math.floor(0.2 * demonSpawnChance);
         robberSpawnChance = Math.floor(0.2 * robberSpawnChance);
         devastationSpawnChance = Math.floor(0.2 * devastationSpawnChance);
@@ -449,9 +488,19 @@ function rebirthAllowed() {
     }
 }
 
-async function checkAchievment() {
-    if (candiesCaught == 1) {
-        await delay(2500);
+function askCode() {
+    if (prompt("Enter Code:") == activationCode && activationCode != "") {
+        activationCode = "";
+        selectCodeOutput();
+    }
+}
+
+async function selectCodeOutput() {
+    await delay(1000);
+    if (Math.random() <= 0.6) {
+        new Candy("rainbowCandy", 10_000, "Regular Candy.svg");
+    } else {
+        new Candy("diamondCandy", 1_000_000_000, "Regular Candy.svg");
     }
 }
 
