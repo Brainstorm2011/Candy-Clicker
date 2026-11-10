@@ -311,7 +311,7 @@ body::before {
     height: 100px;
     background-color: #fefcaf;
     color: black;
-    border: 3px solid black;
+    border: 5px solid black;
     border-radius: 20px;
     user-select: none;
     z-index: 9999;
@@ -321,4 +321,6 @@ body::before {
     animation-timing-function: linear;
     animation-iteration-count: 1;
     animation-fill-mode: backwards;
+    text-align: center;
+    font-size: 30pt;
 }

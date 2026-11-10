@@ -308,7 +308,7 @@ class Candy {
             flyCandy.addEventListener("mouseover", () => {this.addDevastation();});
         } else if (type == "code") {
             flyCandy.addEventListener("animationend", () => {this.element.remove()});
-            flyCandy.addEventListener("pointerdown", () => {this.addCode});
+            flyCandy.addEventListener("pointerdown", () => {this.addCode()}, {once : true});
         } else {
             flyCandy.addEventListener("animationend", () => {this.element.remove();});
             flyCandy.addEventListener("pointerdown", () => {this.addFlyCandy();});
@@ -339,14 +339,23 @@ class Candy {
         refreshDisplay();
     }
 
-    addCode() {
+    async addCode() {
+        this.element.style.animation = "none";
+        const left = (window.innerWidth - 200) / 2;
+        const top = (window.innerHeight - 100) / 2;
+        this.element.style.left = `${left}px`;
+        this.element.style.top = `${top}px`;
         let activationCode = "";
         for (let i = 0; i < 6; i++) {
-            activationCode += ALPHANUMERICBET[Math.floor(Math.random() * 36) - 1];
-            if (i % 2 == 1) {
+            activationCode += ALPHANUMERICBET[Math.floor(Math.random() * 36)];
+            if (i % 3 == 1) {
                 activationCode += "-";
             }
         }
+        this.element.innerHTML = activationCode;
+        this.element.style.transform = "scale(3)";
+        await delay(2000);
+        this.element.remove();
     }
 }
 
@@ -422,7 +431,7 @@ function resetGame() {
                 clickPower = 1;
                 candyPerSecond = 0;
                 candyTime = [0, 0, 0, 0, 0, 0, 0, 0];
-                candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(5, 10)];
+                candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(1, 2)];
                 demonSpawnChance = 1;
                 robberSpawnChance = 1;
                 devastationSpawnChance = 1;
