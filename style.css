@@ -313,4 +313,11 @@ body::before {
     color: black;
     border: 3px solid black;
     border-radius: 20px;
+    user-select: none;
+    z-index: 9999;
+    animation-name: candyMovement;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    animation-fill-mode: backwards;
 }
