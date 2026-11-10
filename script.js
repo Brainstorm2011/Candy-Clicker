@@ -435,7 +435,7 @@ function resetGame() {
                 clickPower = 1;
                 candyPerSecond = 0;
                 candyTime = [0, 0, 0, 0, 0, 0, 0, 0];
-                candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(1, 2)];
+                candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(180, 360)];
                 demonSpawnChance = 1;
                 robberSpawnChance = 1;
                 devastationSpawnChance = 1;
@@ -476,6 +476,16 @@ function rebirthAllowed() {
 function askCode() {
     if (prompt("Enter Code:") == activationCode && activationCode != "") {
         activationCode = "";
+        selectCodeOutput();
+    }
+}
+
+async function selectCodeOutput() {
+    await delay(1000);
+    if (Math.random() <= 0.6) {
+        new Candy("rainbowCandy", 10_000, "Regular Candy.svg");
+    } else {
+        new Candy("diamondCandy", 1_000_000_000, "Regular Candy.svg");
     }
 }
 
