@@ -6,6 +6,8 @@ let robberSpawnChance = 1;
 let devastationSpawnChance = 1;
 let rebirth = 1;
 
+let activationCode = "";
+
 let mouseY = 0;
 let mouseX = 0;
 
@@ -120,6 +122,7 @@ function loadUpgrades() {
 
 const RESET_BUTTON = document.getElementById("reset");
 const REBIRTH_BUTTON = document.getElementById("rebirth");
+const CODE_BUTTON = document.getElementById("codeButton");
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const maxTrackHeight = window.innerHeight - 50;
@@ -141,6 +144,7 @@ RESET_BUTTON.addEventListener("mouseout", resetOff);
 RESET_BUTTON.addEventListener("click", resetGame);
 
 REBIRTH_BUTTON.addEventListener("click", rebirthPurchased);
+CODE_BUTTON.addEventListener("click", askCode);
 
 if (localStorage.getItem("candy") !== null) {
     loadGame();
@@ -345,7 +349,7 @@ class Candy {
         const top = (window.innerHeight - 100) / 2;
         this.element.style.left = `${left}px`;
         this.element.style.top = `${top}px`;
-        let activationCode = "";
+        activationCode = "";
         for (let i = 0; i < 6; i++) {
             activationCode += ALPHANUMERICBET[Math.floor(Math.random() * 36)];
             if (i % 3 == 1) {
@@ -469,9 +473,9 @@ function rebirthAllowed() {
     }
 }
 
-async function checkAchievment() {
-    if (candiesCaught == 1) {
-        await delay(2500);
+function askCode() {
+    if (prompt("Enter Code:") == activationCode && activationCode != "") {
+        activationCode = "";
     }
 }
 
