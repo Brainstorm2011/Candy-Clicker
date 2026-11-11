@@ -126,7 +126,7 @@ const CODE_BUTTON = document.getElementById("codeButton");
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const maxTrackHeight = window.innerHeight - 50;
-const numSuffixes = ['', 'K', 'M', 'B', 'T', 'Q', 'Qi', 'S', 'Sp', 'O', 'N', 'D', 'Un', 'Du', 'Tr', 'Qa'];
+const suffixes = ['', 'K', 'M', 'B', 'T', 'Q', 'Qi', 'Sx', 'Sp', 'Oc', 'Nn', 'Dc', 'Un', 'Du', 'Tr', 'Qa'];
 let candyTime = [0, 0, 0, 0, 0, 0, 0, 0];
 let candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(180, 360)];
 let threshold = UPGRADE_DATA[rebirth * 4 - 1].cost * 10;
@@ -277,32 +277,28 @@ async function runCPS() {
     }
 }
 
-function splitNumber(number) {
-    const len = String(Math.abs(number)).length;
-    if (len > 3 && Math.abs(number) != 0) {
-        const power = Math.floor(Math.log10(Math.abs(number)) / 3);
-        const dec = (Math.abs(number) / (10 ** (power * 3)));
-        let x = '';
-        if (String(dec).length >= 3) {
-            let i = 0;
-            while (String(dec)[i] != '.') {
-                x += String(dec)[i];
-                i++;
-            }
-            x += String(dec)[i];
-            i++;
-            x += String(dec)[i];
-        } else {
-            x = String(dec) + '.0';
-        }
-        if (number < 0) {
-            return '-' + x + numSuffixes[power];
-        } else {
-            return x + numSuffixes[power];
-        }
-    } else {
-        return number;
-    }
+function splitNumber(value) {
+    const bigNum = typeof value === 'number' 
+    ? BigInt(Math.trunc(value)) 
+    : BigInt(value);
+
+    const isNegative = bigNum < 0n;
+    const absNum = isNegative ? -bigNum : bigNum;
+
+    if (absNum < 1000n) return bigNum.toString();
+
+    const numStr = absNum.toString();
+    const tier = Math.floor((numStr.length - 1) / 3);
+    const suffixIndex = Math.min(tier, suffixes.length - 1);
+    const suffix = suffixes[suffixIndex];
+
+    const scale = 10n ** BigInt(suffixIndex * 3 - 1);
+    const scaled = absNum / scale;
+
+    const wholePart = scaled / 10n;
+    const decimalPart = scaled % 10n;
+
+    return `${isNegative ? '-' : ''}${wholePart}.${decimalPart}${suffix}`;
 }
 
 class Candy {
