@@ -6,6 +6,8 @@ let robberSpawnChance = 1;
 let devastationSpawnChance = 1;
 let rebirth = 1;
 
+let aborted = false;
+
 let activationCode = "";
 
 let mouseY = 0;
@@ -146,6 +148,8 @@ RESET_BUTTON.addEventListener("click", resetGame);
 REBIRTH_BUTTON.addEventListener("click", rebirthPurchased);
 CODE_BUTTON.addEventListener("click", askCode);
 
+window.addEventListener("pagehide", () => {aborted = true;});
+
 if (localStorage.getItem("candy") !== null) {
     loadGame();
 } 
@@ -264,7 +268,7 @@ async function decreaseRobberSpawn(element) {
 }
 
 async function runCPS() {
-    while (true) {
+    while (!aborted) {
         candy += candyPerSecond;
         for (let i = 0; i < candyTime.length; i++) {
             candyTime[i]++;
