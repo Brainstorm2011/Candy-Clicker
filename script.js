@@ -6,6 +6,8 @@ let robberSpawnChance = 1;
 let devastationSpawnChance = 1;
 let rebirth = 1;
 
+let aborted = false;
+
 let activationCode = "";
 
 let mouseY = 0;
@@ -19,8 +21,6 @@ const CLICK_POWER_DISPLAY = document.getElementById("clickPowerDisplay");
 const CPS_DISPLAY = document.getElementById("cpsDisplay");
 
 const ALPHANUMERICBET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
-
-let candiesCaught = 0;
 
 const UPGRADE_DATA = [
     { name: "Bronze Cursor", displayCost: "25", cost: 25, cat: 1, displayPower: "1", power: 1, imgName: "Bronze Cursor.png" },
@@ -146,6 +146,8 @@ RESET_BUTTON.addEventListener("click", resetGame);
 REBIRTH_BUTTON.addEventListener("click", rebirthPurchased);
 CODE_BUTTON.addEventListener("click", askCode);
 
+window.addEventListener("pagehide", () => {aborted = true;});
+
 if (localStorage.getItem("candy") !== null) {
     loadGame();
 } 
@@ -161,7 +163,6 @@ function loadGame() {
     devastationSpawnChance = localStorage.getItem("devastationSpawn");
     threshold = localStorage.getItem("rebirthThreshold");
     rebirth = localStorage.getItem("rebirthLevel");
-    candiesCaught = localStorage.getItem("candiesCaught");
 }
 
 function saveGame() {
@@ -175,7 +176,6 @@ function saveGame() {
     localStorage.setItem("devastationSpawn", devastationSpawnChance);
     localStorage.setItem("rebirthThreshold", threshold);
     localStorage.setItem("rebirthLevel", rebirth);
-    localStorage.setItem("candiesCaught", candiesCaught);
 }
 
 window.addEventListener("mousemove", (e) => {mouseX = e.pageX; mouseY = e.pageY});
@@ -264,7 +264,7 @@ async function decreaseRobberSpawn(element) {
 }
 
 async function runCPS() {
-    while (true) {
+    while (!aborted) {
         candy += candyPerSecond;
         for (let i = 0; i < candyTime.length; i++) {
             candyTime[i]++;
@@ -333,9 +333,6 @@ class Candy {
 
     addFlyCandy() {
         candy += this.power * clickPower;
-        if (this.type = "regCandy") {
-            candiesCaught++;
-        }
         this.element.remove();
         refreshDisplay();
     }
@@ -411,6 +408,7 @@ async function checkCandySpawns() {
     }
     if (candyTime[6] >= candySpawn[6]) {
         if (Math.random() <= devastationSpawnChance) {
+            console.log(true)
             candySpawn[6] = (Math.random() * 160) + 80;
             candyTime[6] = 0;
             for (let i = 0; i < 5; i++) {
@@ -466,9 +464,6 @@ function rebirthPurchased() {
         candyPerSecond = Math.floor(0.000001 * candyPerSecond);
         candyTime = [0, 0, 0, 0, 0, 0, 0, 0];
         candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(180, 360)];
-        demonSpawnChance = Math.floor(0.2 * demonSpawnChance);
-        robberSpawnChance = Math.floor(0.2 * robberSpawnChance);
-        devastationSpawnChance = Math.floor(0.2 * devastationSpawnChance);
         rebirth++;
         threshold = UPGRADE_DATA[rebirth * 4 - 1].cost * 10;
         saveGame();
