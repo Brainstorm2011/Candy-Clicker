@@ -22,8 +22,6 @@ const CPS_DISPLAY = document.getElementById("cpsDisplay");
 
 const ALPHANUMERICBET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 
-let candiesCaught = 0;
-
 const UPGRADE_DATA = [
     { name: "Bronze Cursor", displayCost: "25", cost: 25, cat: 1, displayPower: "1", power: 1, imgName: "Bronze Cursor.png" },
     { name: "Auto Candy", displayCost: "100", cost: 100, cat: 2, displayPower: "1", power: 1, imgName: "Auto Candy.png" },
@@ -165,7 +163,6 @@ function loadGame() {
     devastationSpawnChance = localStorage.getItem("devastationSpawn");
     threshold = localStorage.getItem("rebirthThreshold");
     rebirth = localStorage.getItem("rebirthLevel");
-    candiesCaught = localStorage.getItem("candiesCaught");
 }
 
 function saveGame() {
@@ -179,7 +176,6 @@ function saveGame() {
     localStorage.setItem("devastationSpawn", devastationSpawnChance);
     localStorage.setItem("rebirthThreshold", threshold);
     localStorage.setItem("rebirthLevel", rebirth);
-    localStorage.setItem("candiesCaught", candiesCaught);
 }
 
 window.addEventListener("mousemove", (e) => {mouseX = e.pageX; mouseY = e.pageY});
@@ -337,9 +333,6 @@ class Candy {
 
     addFlyCandy() {
         candy += this.power * clickPower;
-        if (this.type = "regCandy") {
-            candiesCaught++;
-        }
         this.element.remove();
         refreshDisplay();
     }
