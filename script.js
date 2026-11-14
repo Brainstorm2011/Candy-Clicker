@@ -410,6 +410,7 @@ async function checkCandySpawns() {
         if (Math.random() <= devastationSpawnChance) {
             console.log(true)
             candySpawn[6] = (Math.random() * 160) + 80;
+            candyTime[6] = 0;
             for (let i = 0; i < 5; i++) {
                 new Candy("demonCandy", -500, "Demon Candy.svg")
                 await delay(500);
