@@ -465,7 +465,7 @@ function rebirthPurchased() {
         candyTime = [0, 0, 0, 0, 0, 0, 0, 0];
         candySpawn = [createSpawns(0, 60), createSpawns(60, 120), createSpawns(120, 240), createSpawns(600, 900), createSpawns(40, 120), createSpawns(30, 100), createSpawns(80, 240), createSpawns(180, 360)];
         rebirth++;
-        threshold = UPGRADE_DATA[rebirth * 4 - 1].cost * 10;
+        threshold = BigInt(UPGRADE_DATA[rebirth * 4 - 1].cost) * 10n;
         saveGame();
         window.location.reload();
     }
