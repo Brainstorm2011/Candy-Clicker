@@ -33,7 +33,7 @@ const UPGRADE_DATA = [
     { name: "Candy Temple", displayCost: "125M", cost: 125_000_000, cat: 2, displayPower: "5M", power: 5_000_000, imgName: "Candy Temple.png" },
     { name: "Gold Cursor", displayCost: "400M", cost: 400_000_000, cat: 1, displayPower: "2M", power: 2_000_000, imgName: "Gold Cursor.png" },
     { name: "Candy Rocket", displayCost: "5B", cost: 5_000_000_000, cat: 2, displayPower: "100M", power: 100_000_000, imgName: "Candy Rocket.png" },
-    { name: "Candy Man", displayCost: "100B", cost: 15_000_000, cat: 2, displayPower: "2.5B", power: 2_500_000_000, imgName: "Candy Man.png" },
+    { name: "Candy Man", displayCost: "100B", cost: 100_000_000_000, cat: 2, displayPower: "2.5B", power: 2_500_000_000, imgName: "Candy Man.png" },
     { name: "Candy King", displayCost: "2T", cost: 2_000_000_000_000, cat: 2, displayPower: "150B", power: 150_000_000_000, imgName: "Candy King.png" },
     { name: "Jade Cursor", displayCost: "150T", cost: 150_000_000_000_000, cat: 1, displayPower: "2T", power: 2_000_000_000_000, imgName: "Jade Cursor.png" },
     { name: "Candy Planet", displayCost: "10Q", cost: 10_000_000_000_000_000n, cat: 2, displayPower: "100T", power: 100_000_000_000_000, imgName: "Candy Planet.png" },
