@@ -373,35 +373,35 @@ class Candy {
 
 async function checkCandySpawns() {
     if (candyTime[0] >= candySpawn[0]) {
-        new Candy("regCandy", 10, "Regular Candy.svg");
+        new Candy("regCandy", 10, "images/Regular Candy.svg");
         candySpawn[0] = (Math.random() * 60);
         candyTime[0] = 0;
     }
     if (candyTime[1] >= candySpawn[1]) {
-        new Candy("goldCandy", 100, "Regular Candy.svg");
+        new Candy("goldCandy", 100, "images/Regular Candy.svg");
         candySpawn[1] = (Math.random() * 60) + 60;
         candyTime[1] = 0;
     }
     if (candyTime[2] >= candySpawn[2]) {
-        new Candy("rainbowCandy", 10_000, "Regular Candy.svg");
+        new Candy("rainbowCandy", 10_000, "images/Regular Candy.svg");
         candySpawn[2] = (Math.random() * 120) + 120;
         candyTime[2] = 0;
     }
     if (candyTime[3] >= candySpawn[3]) {
-        new Candy("diamondCandy", 1_000_000_000, "Regular Candy.svg");
+        new Candy("diamondCandy", 1_000_000_000, "images/Regular Candy.svg");
         candySpawn[3] = (Math.random() * 300) + 600;
         candyTime[3] = 0;
     }
     if (candyTime[4] >= candySpawn[4]) {
             if (Math.random() <= demonSpawnChance) {
-            new Candy("demonCandy", -500, "Demon Candy.svg");
+            new Candy("demonCandy", -500, "images/Demon Candy.svg");
             candySpawn[4] = (Math.random() * 80) + 40;
             candyTime[4] = 0;
         }
     }
     if (candyTime[5] >= candySpawn[5]) {
         if (Math.random() <= robberSpawnChance) {
-            new Candy("robberCandy", 0.5, "Robber Candy.svg");
+            new Candy("robberCandy", 0.5, "images/Robber Candy.svg");
             candySpawn[5] = (Math.random() * 70) + 30;
             candyTime[5] = 0;
         }
@@ -412,11 +412,11 @@ async function checkCandySpawns() {
             candySpawn[6] = (Math.random() * 160) + 80;
             candyTime[6] = 0;
             for (let i = 0; i < 5; i++) {
-                new Candy("demonCandy", -500, "Demon Candy.svg")
+                new Candy("demonCandy", -500, "images/Demon Candy.svg")
                 await delay(500);
             }
             await delay(2000)
-            new Candy("devastationCandy", -10, "Devastation Candy.svg");
+            new Candy("devastationCandy", -10, "images/Devastation Candy.svg");
         }
     }
     if (candyTime[7] >= candySpawn[7]) {
@@ -489,9 +489,9 @@ function askCode() {
 async function selectCodeOutput() {
     await delay(1000);
     if (Math.random() <= 0.6) {
-        new Candy("rainbowCandy", 10_000, "Regular Candy.svg");
+        new Candy("rainbowCandy", 10_000, "images/Regular Candy.svg");
     } else {
-        new Candy("diamondCandy", 1_000_000_000, "Regular Candy.svg");
+        new Candy("diamondCandy", 1_000_000_000, "images/Regular Candy.svg");
     }
 }
 
